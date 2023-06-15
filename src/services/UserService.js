@@ -1,5 +1,5 @@
 const BlogPost = require('../models/BlogPost');
-const User = require('../models/User');
+const { User } = require('../models');
 
 const getAll = async () => {
     const users = await User.findAll(
@@ -14,6 +14,20 @@ const getAll = async () => {
     return users;
 };
 
+const getByEmail = async (email) => {
+    const user = await User.findOne({
+        where: {
+            email,
+        },
+        // include: {
+        //     model: BlogPost,
+        //     as: 'posts',
+        // },
+    });
+    return user;
+};
+
 module.exports = {
     getAll,
+    getByEmail,
 };
