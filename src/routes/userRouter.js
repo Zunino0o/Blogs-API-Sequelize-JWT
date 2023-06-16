@@ -5,6 +5,7 @@ const {
     emailValidation, 
     passwordValidation, 
 } = require('../Middlewares/userValidation');
+const { validateJwt } = require('../Middlewares/jwtValidation');
 
 const userRouter = Router();
 userRouter.post(
@@ -15,6 +16,6 @@ passwordValidation,
 userController.createUser,
 );
 
-userRouter.get('/', userController.getAllUsers);
+userRouter.get('/', validateJwt, userController.getAllUsers);
 
 module.exports = userRouter;
