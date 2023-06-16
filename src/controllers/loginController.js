@@ -1,10 +1,8 @@
-const jwt = require('jsonwebtoken');
 const { UserService } = require('../services');
+const generateToken = require('../utils/generateToken');
 
 const HTTP_STATUS_OK = 200;
 const HTTP_STATUS_BAD_REQ = 400;
-
-const secret = process.env.JWT_SECRET;
 
 const isBodyValid = (email, password) => email && password;
 
@@ -22,10 +20,9 @@ const login = async (req, res) => {
         message: 'Invalid fields',
       });
     }
+    
+    const token = generateToken({ id: user.id });
 
-    const token = jwt.sign({ data: { id: user.id } }, secret, {
-      algorithm: 'HS256',
-    });
     return res.status(HTTP_STATUS_OK).json({ token });
 };
 
