@@ -1,4 +1,5 @@
 const { User } = require('../models');
+const { getByEmail } = require('./LoginService');
 
 // const HTTP_STATUS_BAD_REQ = 400;
 const HTTP_STATUS_DUPLICATED_EMAIL = 409;
@@ -7,15 +8,6 @@ const getAll = async () => {
   const users = await User.findAll();
 
   return { type: null, message: users };
-};
-
-const getByEmail = async (email) => {
-  const user = await User.findOne({
-    where: {
-      email,
-    },
-  });
-  return user;
 };
 
 const createUser = async (user) => {
@@ -38,6 +30,5 @@ const createUser = async (user) => {
 
 module.exports = {
   getAll,
-  getByEmail,
   createUser,
 };
