@@ -1,5 +1,5 @@
-const { User } = require("../models");
-const { generateToken } = require("../utils/generateToken");
+const { User } = require('../models');
+const { generateToken } = require('../utils/generateToken');
 
 const HTTP_STATUS_BAD_REQ = 400;
 
@@ -14,18 +14,12 @@ const getByEmail = async (email) => {
 
 const login = async (payload) => {
   const { email, password } = payload;
-  const isBodyValid = email && password;
-  if (!isBodyValid) {
-    return {
-      type: HTTP_STATUS_BAD_REQ,
-      message: "Some required fields are missing",
-    };
-  }
+  
   const user = await getByEmail(email);
   if (!user || user.password !== password) {
     return {
       type: HTTP_STATUS_BAD_REQ,
-      message: "Invalid fields",
+      message: 'Invalid fields',
     };
   }
   const token = generateToken({
