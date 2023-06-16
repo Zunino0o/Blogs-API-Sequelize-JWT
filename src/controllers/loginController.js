@@ -1,5 +1,5 @@
 const { UserService } = require('../services');
-const generateToken = require('../utils/generateToken');
+const { generateToken } = require('../utils/generateToken');
 
 const HTTP_STATUS_OK = 200;
 const HTTP_STATUS_BAD_REQ = 400;

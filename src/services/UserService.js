@@ -1,17 +1,12 @@
-const { User, BlogPost } = require('../models');
+const { User } = require('../models');
 
 // const HTTP_STATUS_BAD_REQ = 400;
 const HTTP_STATUS_DUPLICATED_EMAIL = 409;
 
 const getAll = async () => {
-  const users = await User.findAll({
-    include: {
-      model: BlogPost,
-      as: 'posts',
-    },
-  });
+  const users = await User.findAll();
 
-  return users;
+  return { type: null, message: users };
 };
 
 const getByEmail = async (email) => {

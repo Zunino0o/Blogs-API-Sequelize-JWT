@@ -3,11 +3,11 @@ const jwt = require('jsonwebtoken');
 const secret = process.env.JWT_SECRET;
 
 /* Recebe um objeto */
-const generateToken = (payload) => {
-    const token = jwt.sign({ data: payload }, secret, {
-        algorithm: 'HS256',
-      });
-      return token;
-};
+const generateToken = (payload) => jwt.sign(payload, secret);
 
-module.exports = generateToken;
+const decodeToken = (token) => jwt.verify(token, secret);
+
+module.exports = {
+  generateToken,
+  decodeToken,
+};

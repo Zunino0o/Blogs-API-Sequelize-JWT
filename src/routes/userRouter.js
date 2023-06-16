@@ -15,4 +15,6 @@ passwordValidation,
 userController.createUser,
 );
 
+userRouter.get('/', userController.getAllUsers);
+
 module.exports = userRouter;
