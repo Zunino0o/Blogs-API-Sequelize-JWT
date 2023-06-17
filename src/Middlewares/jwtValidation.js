@@ -22,16 +22,16 @@ const checkToken = (req, res, next) => {
   next();
 };
 
-const validateJwtToken = (req, res, next) => {
-  const token = req.headers.authorization;
-  const decoded = decodeToken(token);
-  if (!decoded.id) {
-    return res.status(HTTP_STATUS_UNAUTHORIZED).json(PORBLEMATIC_TOKEN_MESSAGE);
-  }
-  next();
-};
+// const validateJwtToken = (req, res, next) => {
+//   const token = req.headers.authorization;
+//   const decoded = decodeToken(token);
+//   if (!decoded.id) {
+//     return res.status(HTTP_STATUS_UNAUTHORIZED).json(PORBLEMATIC_TOKEN_MESSAGE);
+//   }
+//   next();
+// };
 
 module.exports = {
   checkToken,
-  validateJwtToken,
+  // validateJwtToken,
 };
