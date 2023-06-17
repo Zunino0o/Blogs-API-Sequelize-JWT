@@ -9,21 +9,23 @@ const PORBLEMATIC_TOKEN_MESSAGE = { message: 'Expired or invalid token' };
 
 const checkToken = (req, res, next) => {
   const { authorization } = req.headers;
-
-  console.log(authorization);
-
   if (!authorization) {
     return res.status(HTTP_STATUS_UNAUTHORIZED).json(MISSING_TOKEN_MESSAGE);
   }
 
+  try {
+    decodeToken(authorization);
+  } catch (error) {
+    return res.status(HTTP_STATUS_UNAUTHORIZED).json(PORBLEMATIC_TOKEN_MESSAGE);
+  }
+  // const decoded = decodeToken(authorization);
   next();
 };
 
 const validateJwtToken = (req, res, next) => {
-  const { authorization } = req.headers;
-
-  const decoded = decodeToken(authorization);
-  if (!decoded) {
+  const token = req.headers.authorization;
+  const decoded = decodeToken(token);
+  if (!decoded.id) {
     return res.status(HTTP_STATUS_UNAUTHORIZED).json(PORBLEMATIC_TOKEN_MESSAGE);
   }
   next();

@@ -5,9 +5,12 @@ const { getByEmail } = require('./LoginService');
 const HTTP_STATUS_DUPLICATED_EMAIL = 409;
 
 const getAll = async () => {
-  const users = await User.findAll();
-
-  return { type: null, message: users };
+  const users = await User.findAll({
+    attributes: { exclude: ['password'] },
+  });
+  const payload = users.map((u) => u.dataValues);
+  
+  return { type: null, message: payload };
 };
 
 const createUser = async (user) => {

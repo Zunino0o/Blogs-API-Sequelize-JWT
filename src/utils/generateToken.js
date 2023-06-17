@@ -9,6 +9,7 @@ const jwtConfig = {
 /* Recebe um objeto */
 const generateToken = (payload) => jwt.sign(payload, TOKEN_SECRET, jwtConfig);
 
+/* Recebe uma string */
 const decodeToken = (token) => jwt.verify(token, TOKEN_SECRET);
 
 module.exports = {
