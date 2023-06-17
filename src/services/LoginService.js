@@ -15,7 +15,7 @@ const getByEmail = async (email) => {
 const login = async (payload) => {
   const { email, password } = payload;
   
-  const user = await getByEmail(email)
+  const user = await getByEmail(email);
   
   if (!user || user.dataValues.password !== password) {
     return {

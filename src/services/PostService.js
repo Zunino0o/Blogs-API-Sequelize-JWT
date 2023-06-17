@@ -13,7 +13,6 @@ const createPost = async (post) => {
 }
 
   const newPost = await BlogPost.create(post);
-
   return { type: null, message: newPost };
 };
 
