@@ -15,16 +15,18 @@ const getByEmail = async (email) => {
 const login = async (payload) => {
   const { email, password } = payload;
   
-  const user = await getByEmail(email);
-  if (!user || user.password !== password) {
+  const user = await getByEmail(email)
+  
+  if (!user || user.dataValues.password !== password) {
     return {
       type: HTTP_STATUS_BAD_REQ,
       message: 'Invalid fields',
     };
   }
-  const token = generateToken({
-    id: user.id,
-  });
+
+  delete user.dataValues.password;
+  
+  const token = generateToken(user.dataValues);
   return {
     type: null,
     message: token,

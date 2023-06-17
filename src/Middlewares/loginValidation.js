@@ -4,11 +4,12 @@ const OBRIGATORY_FIELDS = 'Some required fields are missing';
 
 const bodyValidations = (req, res, next) => {
   const { email, password } = req.body;
-  const isBodyValid = email && password;
-  if (!isBodyValid) {
+ 
+  const isBodyInvalid = !email || !password;
+  if (isBodyInvalid) {
     return res
       .status(HTTP_STATUS_BAD_REQ)
-      .json(OBRIGATORY_FIELDS);
+      .json({ message: OBRIGATORY_FIELDS });
   }
   next();
 };
