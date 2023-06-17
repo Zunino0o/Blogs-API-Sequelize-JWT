@@ -5,13 +5,14 @@ module.exports = (sequelize, DataTypes) => {
     id: { type: DataTypes.INTEGER, primaryKey: true },
     title: DataTypes.STRING,
     content: DataTypes.STRING,
-    user_id: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER,
     published: DataTypes.DATE,
     updated: DataTypes.DATE,
   },
   {
     timestamps: false,
     tableName: "blog_posts",
+    underscored: true,
   }
   );
   BlogPost.associate = (models) => {
