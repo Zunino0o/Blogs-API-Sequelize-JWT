@@ -2,6 +2,7 @@ const { User } = require('../models');
 const { getByEmail } = require('./LoginService');
 
 // const HTTP_STATUS_BAD_REQ = 400;
+const HTTP_STATUS_NOT_FOUND = 404;
 const HTTP_STATUS_DUPLICATED_EMAIL = 409;
 
 const getAll = async () => {
@@ -31,7 +32,24 @@ const createUser = async (user) => {
   };
 };
 
+const getUserById = async (id) => {
+  const user = await User.findByPk(id, {
+    attributes: { exclude: ['password'] },
+  });
+  if (!user) {
+    return {
+      type: HTTP_STATUS_NOT_FOUND,
+      message: 'User does not exist',
+    };
+  }
+  
+  const payload = user.dataValues;
+
+  return { type: null, message: payload };
+};
+
 module.exports = {
   getAll,
   createUser,
+  getUserById,
 };

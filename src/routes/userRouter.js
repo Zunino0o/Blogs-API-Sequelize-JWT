@@ -20,6 +20,7 @@ userRouter.post(
 );
 
 userRouter.get('/', checkToken, userController.getAllUsers);
-// userRouter.get('/', userController.getAllUsers);
+
+userRouter.get('/:id', checkToken, userController.getUserById);
 
 module.exports = userRouter;
