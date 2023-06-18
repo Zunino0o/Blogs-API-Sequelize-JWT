@@ -18,7 +18,7 @@ const createUser = async (user) => {
   const { email } = user;
 
   const findUser = await getByEmail(email);
-  if (findUser.dataValues.email === email) {
+  if (findUser) {
     return {
           type: HTTP_STATUS_DUPLICATED_EMAIL,
           message: 'User already registered',
@@ -26,9 +26,11 @@ const createUser = async (user) => {
       }
 
   const newUser = await User.create(user);
+  delete newUser.dataValues.password;
+
   return {
     type: null,
-    message: newUser,
+    message: newUser.dataValues,
   };
 };
 
