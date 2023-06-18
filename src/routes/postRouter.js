@@ -13,4 +13,11 @@ postRouter.post(
   postController.createPost,
 );
 
+// REQ 13
+postRouter.get(
+  '/',
+  checkToken,
+  postController.getAllPosts,
+);
+
 module.exports = postRouter;
