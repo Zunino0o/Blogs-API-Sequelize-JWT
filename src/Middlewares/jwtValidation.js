@@ -14,12 +14,12 @@ const checkToken = (req, res, next) => {
   }
 
   try {
-    decodeToken(authorization);
+    const decoded = decodeToken(authorization);
+    req.user = decoded;
+    next();
   } catch (error) {
     return res.status(HTTP_STATUS_UNAUTHORIZED).json(PORBLEMATIC_TOKEN_MESSAGE);
   }
-  // const decoded = decodeToken(authorization);
-  next();
 };
 
 // const validateJwtToken = (req, res, next) => {
