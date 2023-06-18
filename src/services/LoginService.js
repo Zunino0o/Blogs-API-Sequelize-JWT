@@ -1,4 +1,8 @@
 const { User } = require('../models');
+
+console.log('🚀 ------------------------------------------🚀');
+console.log('🚀 ~ file: LoginService.js:2 ~ User:', typeof User);
+console.log('🚀 ------------------------------------------🚀');
 const { generateToken } = require('../utils/generateToken');
 
 const HTTP_STATUS_BAD_REQ = 400;

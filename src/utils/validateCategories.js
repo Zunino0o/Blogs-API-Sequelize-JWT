@@ -1,14 +1,7 @@
-const { Category } = require('../models');
+// const { Category } = require('../models');
 
-const validateCategories = async (idsArr) => {
-  if (idsArr.length === 0) return false;
-  await idsArr.forEach(async (id) => {
-    const search = await Category.findOne({ where: { id } });
-    if (!search) {
-      return false;
-    }
-  });
-  return true;
-};
+// const validateCategories = async (idsArr) => {
+//   if (idsArr.length === 0) return false;
+// };
 
-module.exports = validateCategories;
+// module.exports = validateCategories;
