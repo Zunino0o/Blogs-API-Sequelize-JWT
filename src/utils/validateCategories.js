@@ -1,7 +1,9 @@
-// const { Category } = require('../models');
+const { Category } = require('../models');
 
-// const validateCategories = async (idsArr) => {
-//   if (idsArr.length === 0) return false;
-// };
+const validateCategories = async (idsArr) => {
+  const response = await Category.findAll({ where: { id: idsArr } });
 
-// module.exports = validateCategories;
+  return response.length === idsArr.length;
+};
+
+module.exports = validateCategories;
