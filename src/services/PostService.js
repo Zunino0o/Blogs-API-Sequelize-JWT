@@ -2,6 +2,7 @@ const { BlogPost, PostCategory, User, Category } = require('../models');
 const validateCategories = require('../utils/validateCategories');
 
 const HTTP_STATUS_BAD_REQ = 400;
+const HTTP_STATUS_UNAUTHORIZED = 401;
 const HTTP_STATUS_NOT_FOUND = 404;
 
 const getAllPosts = async () => {
@@ -47,8 +48,29 @@ const getPostsById = async (postId) => {
   return { type: null, message: posts.dataValues };
 };
 
+const updatePostById = async (postId, payload, userId) => {
+  const findPost = await BlogPost.findByPk(postId);
+  if (!findPost) { return { type: HTTP_STATUS_NOT_FOUND, message: 'Post does not exist' }; }
+
+  if (findPost.dataValues.userId !== userId) {
+    return { type: HTTP_STATUS_UNAUTHORIZED, message: 'Unauthorized user' };
+  }
+
+  await BlogPost.update(payload, { where: { id: postId } });
+
+  const updatedPost = await BlogPost.findByPk(postId, {
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  return { type: null, message: updatedPost.dataValues };
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostsById,
+  updatePostById,
 };
