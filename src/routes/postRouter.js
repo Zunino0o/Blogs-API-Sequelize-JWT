@@ -20,4 +20,11 @@ postRouter.get(
   postController.getAllPosts,
 );
 
+// REQ 14
+postRouter.get(
+  '/:id',
+  checkToken,
+  postController.getPostsById,
+);
+
 module.exports = postRouter;
